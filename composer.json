@@ -5,6 +5,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "debril/rss-atom-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/asset": "5.0.*",
         "symfony/console": "5.0.*",
@@ -78,7 +79,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": "true",
             "require": "5.0.*"
         }
     }
