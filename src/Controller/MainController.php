@@ -2,12 +2,23 @@
 
 namespace App\Controller;
 
+use App\Module\RssReader\FeedReaderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
+    /**
+     * @var FeedReaderInterface
+     */
+    private $feedReader;
+
+    public function __construct(FeedReaderInterface $feedReader)
+    {
+        $this->feedReader = $feedReader;
+    }
+
     /**
      * @Route("/", name="index")
      */
@@ -18,6 +29,8 @@ class MainController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('main/index.html.twig');
+        $feedItemsGroups = $this->feedReader->getItems();
+
+        return $this->render('main/index.html.twig', ['feedItemsGroups' => $feedItemsGroups]);
     }
 }

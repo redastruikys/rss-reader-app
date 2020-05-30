@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <center>This is RSS App</center>
+{% block content %}
+    {% if app.user %}
+        {% include '.components/feed/feed.html.twig' with {feedItemsGroups: feedItemsGroups} %}
+    {% endif %}
 {% endblock %}

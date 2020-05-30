@@ -3,7 +3,7 @@
         {# layout header #}
         <div class="row">
             <div class="col col-12 align-items-center d-flex flex-column">
-                {% include '.components/brand/logo.html.twig' %}
+                {% include '.components/brand/logo.html.twig' with {sizeClass: 'size-md'} %}
 
                 <h1 class="h3 mb-3 font-weight-normal">
                     {% block title %}{% endblock %}

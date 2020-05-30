@@ -25,6 +25,14 @@
         <source>Login</source>
         <target>Login</target>
       </trans-unit>
+      <trans-unit id="nWMiwfT_1" resname="Logout">
+        <source>Logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="0">
+        <source>News feed</source>
+        <target>News feed</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

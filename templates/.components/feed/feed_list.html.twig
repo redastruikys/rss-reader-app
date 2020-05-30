@@ -1,0 +1,5 @@
+<ul class="feed-list list-group">
+    {% for feedItem in items %}
+        {% include '.components/feed/feed_list_item.html.twig' with {item: feedItem} %}
+    {% endfor %}
+</ul>

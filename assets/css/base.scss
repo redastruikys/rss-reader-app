@@ -1,0 +1,36 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content-container {
+  display: block;
+  margin: 0 auto;
+  width: $max-content-container-width;
+}
+
+@media (max-width: $max-content-container-width) {
+  .content-container {
+    width: auto;
+  }
+}
+
+.logo-img {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  width: auto;
+  height: auto;
+
+  &.size-sm {
+    width: $brand-logo-size-sm;
+    height: $brand-logo-size-sm;
+  }
+
+  &.size-md {
+    width: $brand-logo-size-md;
+    height: $brand-logo-size-md;
+  }
+}

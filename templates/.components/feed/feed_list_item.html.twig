@@ -1,0 +1,8 @@
+<li class="list-group-item">
+    <blockquote class="blockquote">
+        <a class="d-block" href="{{ item.link }}" target="_blank">{{ item.title|raw }}</a>
+        <small>
+            {{ item.description|striptags('<i><b>')|raw }}
+        </small>
+    </blockquote>
+</li>

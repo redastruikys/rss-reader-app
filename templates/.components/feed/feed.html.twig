@@ -1,0 +1,7 @@
+<div>
+    <h2 class="text-center">{{ 'News feed'|trans }}</h2>
+
+    {% for feedItemsGroup in feedItemsGroups %}
+        {% include '.components/feed/feed_group.html.twig' with {group: feedItemsGroup} %}
+    {% endfor %}
+</div>

@@ -1,5 +1,4 @@
 $box-width: 360px;
-$logo-size: 72px;
 
 .form-box {
   display: block;
@@ -8,10 +7,7 @@ $logo-size: 72px;
   width: $box-width;
 
   .logo-img {
-    width: $logo-size;
-    height: $logo-size;
     margin: 0 auto 2em;
-    border: 0;
   }
 }
 

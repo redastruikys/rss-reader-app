@@ -9909,6 +9909,40 @@ h3 {
     border-color: #dee2e6;
   }
 }
+html, body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content-container {
+  display: block;
+  margin: 0 auto;
+  width: 920px;
+}
+
+@media (max-width: 920px) {
+  .content-container {
+    width: auto;
+  }
+}
+.logo-img {
+  display: inline-block;
+  margin: 0;
+  border: 0;
+  width: auto;
+  height: auto;
+}
+.logo-img.size-sm {
+  width: 30px;
+  height: 30px;
+}
+.logo-img.size-md {
+  width: 72px;
+  height: 72px;
+}
+
 .form-box {
   display: block;
   margin: 1em auto;
@@ -9916,10 +9950,7 @@ h3 {
   width: 360px;
 }
 .form-box .logo-img {
-  width: 72px;
-  height: 72px;
   margin: 0 auto 2em;
-  border: 0;
 }
 
 @media (max-width: 360px) {
