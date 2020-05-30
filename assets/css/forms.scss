@@ -1,0 +1,22 @@
+$box-width: 360px;
+$logo-size: 72px;
+
+.form-box {
+  display: block;
+  margin: 1em auto;
+  padding: 0;
+  width: $box-width;
+
+  .logo-img {
+    width: $logo-size;
+    height: $logo-size;
+    margin: 0 auto 2em;
+    border: 0;
+  }
+}
+
+@media (max-width: $box-width) {
+  .form-box {
+    width: auto;
+  }
+}

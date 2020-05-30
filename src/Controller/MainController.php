@@ -13,6 +13,11 @@ class MainController extends AbstractController
      */
     public function index(): Response
     {
+        //redirect to login page if not yet logged-in
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
         return $this->render('main/index.html.twig');
     }
 }

@@ -9909,5 +9909,23 @@ h3 {
     border-color: #dee2e6;
   }
 }
+.form-box {
+  display: block;
+  margin: 1em auto;
+  padding: 0;
+  width: 360px;
+}
+.form-box .logo-img {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 2em;
+  border: 0;
+}
+
+@media (max-width: 360px) {
+  .form-box {
+    width: auto;
+  }
+}
 
 /*# sourceMappingURL=app.css.map */

@@ -1,0 +1,48 @@
+{% extends '.components/forms/layout.html.twig' %}
+
+{% block title %}{{ 'Please login'|trans }}{% endblock %}
+
+{% block form %}
+    {% if error %}
+        {% set errorMessage = error.messageKey|trans(error.messageData, 'security') %}
+        {% include '.components/alert/error.html.twig' with {message: errorMessage} %}
+    {% endif %}
+
+    <form method="post" action="{{ path('app_login') }}">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <div class="form-group mb-2">
+            <label for="inputEmail" class="sr-only">{{ 'Email address'|trans }}</label>
+            <input
+                value="{{ last_username }}"
+                name="email"
+                type="email"
+                id="inputEmail"
+                class="form-control"
+                placeholder="{{ 'Email address'|trans }}"
+                required
+                autofocus
+            />
+        </div>
+
+        <div class="form-group mb-2">
+            <label for="inputPassword" class="sr-only">{{ 'Password'|trans }}</label>
+            <input
+                name="password"
+                type="password"
+                id="inputPassword"
+                class="form-control"
+                placeholder="{{ 'Password'|trans }}"
+                required
+            />
+        </div>
+
+        {# See https://symfony.com/doc/current/security/remember_me.html #}
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="rememberCheck" name="_remember_me">
+            <label class="form-check-label" for="rememberCheck">{{ 'Remember me'|trans }}</label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ 'Login'|trans }}</button>
+    </form>
+{% endblock %}
