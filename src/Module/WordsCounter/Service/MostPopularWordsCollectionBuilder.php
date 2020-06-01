@@ -7,12 +7,17 @@ use App\Module\WordsCounter\Service\WordsProvider\CommonEnglishWordsProvider;
 use App\Module\WordsCounter\Service\WordsProvider\CountedWordsCollection;
 use App\Module\WordsCounter\Service\WordsProvider\FeedContentWordsProvider\FeedContentWordsProvider;
 use App\Module\WordsCounter\Service\WordsProvider\WordsProviderInterface;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class MostPopularWordsCollectionBuilder
 {
     const DEFAULT_WORDS_LIMIT = 10;
     const WORDS_LIMIT_CONFIG_KEY = 'app.most_popular_words_limit';
+    const CACHE_KEY_PATTERN = 'popular_words_collection_%s';
+    const CACHE_DURATION = 86400;
 
     /**
      * @var WordsProviderInterface
@@ -28,14 +33,21 @@ class MostPopularWordsCollectionBuilder
      */
     private $container;
 
+    /**
+     * @var CacheInterface
+     */
+    private $cache;
+
     public function __construct(
         FeedContentWordsProvider $wordsProvider,
         CommonEnglishWordsProvider $excludedWordsProvider,
-        ContainerInterface $container
+        ContainerInterface $container,
+        CacheInterface $cache
     ) {
         $this->wordsProvider = $wordsProvider;
         $this->excludedWordsProvider = $excludedWordsProvider;
         $this->container = $container;
+        $this->cache = $cache;
     }
 
     /**
@@ -43,16 +55,31 @@ class MostPopularWordsCollectionBuilder
      */
     public function getMostPopularWords(): array
     {
-        $wordsCounter = new WordsCounter();
-        $wordsCounter->setWordsProvider($this->wordsProvider);
-        $wordsCounter->setExcludedWordsProvider($this->excludedWordsProvider);
+        $cacheKey = $this->generateCacheKey();
 
-        $wordsCollection = $wordsCounter->getCountedWordsCollection();
+        try {
+            return $this->cache->get($cacheKey, function (ItemInterface $item) {
+                $item->expiresAfter(self::CACHE_DURATION);
 
-        $this->sortCollection($wordsCollection);
-        $this->reduceCollection($wordsCollection);
+                $wordsCounter = new WordsCounter();
+                $wordsCounter->setWordsProvider($this->wordsProvider);
+                $wordsCounter->setExcludedWordsProvider($this->excludedWordsProvider);
 
-        return $wordsCollection->getItems();
+                $wordsCollection = $wordsCounter->getCountedWordsCollection();
+
+                $this->sortCollection($wordsCollection);
+                $this->reduceCollection($wordsCollection);
+
+                return $wordsCollection->getItems();
+            });
+        } catch (InvalidArgumentException $e) {
+            return [];
+        }
+    }
+
+    private function generateCacheKey(): string
+    {
+        return sprintf(self::CACHE_KEY_PATTERN, date('Ymd'));
     }
 
     private function sortCollection(CountedWordsCollection $collection): void
