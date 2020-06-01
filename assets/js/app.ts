@@ -14,3 +14,7 @@ const $ = require('jquery');
 require('bootstrap');
 
 $('.alert').alert()
+
+import { RegistrationFormModule } from './module/Forms/RegistrationFormModule.js';
+
+RegistrationFormModule.init();

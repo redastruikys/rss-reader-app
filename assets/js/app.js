@@ -12,3 +12,5 @@ require("../css/app.css");
 var $ = require('jquery');
 require('bootstrap');
 $('.alert').alert();
+var RegistrationFormModule_js_1 = require("./module/Forms/RegistrationFormModule.js");
+RegistrationFormModule_js_1.RegistrationFormModule.init();

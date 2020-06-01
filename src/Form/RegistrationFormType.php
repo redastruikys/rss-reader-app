@@ -31,6 +31,9 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Please enter valid email',
                     ]),
                 ],
+                'attr' => [
+                    'class' => 'form-control --check-email-on-typing',
+                ]
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -46,6 +49,9 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                     ]),
                 ],
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
         ;
     }
