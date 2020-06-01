@@ -7,14 +7,27 @@ interface RegistrationFormModuleInterface {
     init(): void
 }
 
+const registration_form_email_errors_id = 'registration_form_email_errors';
+
+const createErrorFeedback = (error: string, id: string) => {
+    const template = `
+        <span class="invalid-feedback d-block">
+            <span class="d-block">
+                <span class="form-error-icon badge badge-danger text-uppercase">Error</span> 
+                <span class="form-error-message">${error}</span>
+            </span>
+        </span>
+    `;
+
+    return $('<div></div>').attr({ id, class: 'mb-2'}).html(template);
+}
+
 export const RegistrationFormModule: RegistrationFormModuleInterface = {
     init: () => {
         $('form').on('keyup', '.--check-email-on-typing', (event) => {
             const target = $(event.target);
             const email = target.val();
             const validEmail = $validate.single(email, {email: true}) === undefined;
-
-            target.removeClass('is-invalid is-valid');
 
             if (validEmail) {
                 ApiModule.checkEmail(email, (response) => {
@@ -23,21 +36,12 @@ export const RegistrationFormModule: RegistrationFormModuleInterface = {
 
                     if (valid) {
                         target.addClass('is-valid');
-                        console.log(target.closest('form'));
-                        $('.--form-message-root', target.closest('form'))
-                            .removeClass('invalid-feedback')
-                            .hide()
-                            .find('.--form-message-text')
-                            .text('')
-                        ;
+                        $(`#${registration_form_email_errors_id}`).remove();
                     } else {
-                        target.addClass('is-invalid');
-                        $('.--form-message-root', target.closest('form'))
-                            .addClass('invalid-feedback')
-                            .show()
-                            .find('.--form-message-text')
-                            .text(error)
-                        ;
+                        target
+                            .removeClass('is-valid')
+                            .closest('.form-group')
+                            .prepend(createErrorFeedback(error, registration_form_email_errors_id));
                     }
                 })
             }

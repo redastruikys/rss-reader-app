@@ -45,6 +45,14 @@
         <source>Don't have account?</source>
         <target>Don't have account?</target>
       </trans-unit>
+      <trans-unit id="1">
+        <source>Register</source>
+        <target>Register</target>
+      </trans-unit>
+        <trans-unit id="2">
+            <source>Already have an account?</source>
+            <target>Already have an account?</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>

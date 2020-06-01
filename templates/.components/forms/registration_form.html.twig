@@ -1,0 +1,17 @@
+{% extends '.components/forms/layout.html.twig' %}
+
+{% block title %}{{ 'Create account'|trans }}{% endblock %}
+
+{% block form %}
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+
+        {{ form_row(form.plainPassword) }}
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{ 'Register'|trans }}</button>
+
+        <div class="mt-3 text-center">
+            <p class="text-muted">{{ "Already have an account?"|trans }} <a href="{{ path('app_login') }}">{{ 'Login'|trans }}</a></p>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
