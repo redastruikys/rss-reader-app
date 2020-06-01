@@ -35,7 +35,7 @@
       </trans-unit>
       <trans-unit id="api.error.email_already_exists">
           <source>api.error.email_already_exists</source>
-          <target>This email already exists.</target>
+          <target>There is already an account with this email</target>
       </trans-unit>
         <trans-unit id="Create account">
             <source>Create account</source>

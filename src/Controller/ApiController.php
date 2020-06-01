@@ -35,7 +35,7 @@ class ApiController extends AbstractController
      */
     public function checkEmail(Request $request): Response
     {
-        $email = $request->get('email') ?? 'redas.truikys@gmail.com';
+        $email = $request->get('email');
         $user = $this->userRepository->findUserByEmail($email);
         $errorMessage = $user ? $this->translator->trans('api.error.email_already_exists') : null;
 
