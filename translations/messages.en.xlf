@@ -33,6 +33,10 @@
         <source>News feed</source>
         <target>News feed</target>
       </trans-unit>
+      <trans-unit id="api.error.email_already_exists">
+          <source>api.error.email_already_exists</source>
+          <target>This email already exists.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
