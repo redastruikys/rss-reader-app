@@ -1,0 +1,15 @@
+<nav class="navbar navbar-light bg-light border-bottom overflow-hidden fixed-top">
+    <a class="navbar-brand" href="#">
+        {% include '.components/brand/logo.html.twig' with {sizeClass: 'size-sm'} %}
+        <h5 class="px-2 brand-name d-none d-sm-inline m-0">{{ site_title }}</h5>
+    </a>
+
+    <div class="float-right d-flex flex-column align-items-end">
+        <small>
+            <span class="text-muted">{{ 'Logged as'|trans }}:</span> {{ app.user.username|split('@')|first }}
+        </small>
+        <small>
+            <a class="nav-link px-0" href="{{ path('app_logout') }}">{{ 'Logout'|trans }}</a>
+        </small>
+    </div>
+</nav>

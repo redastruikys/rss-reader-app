@@ -9918,7 +9918,7 @@ html, body {
 
 .content-container {
   display: block;
-  margin: 0 auto;
+  margin: 75px auto 0;
   width: 920px;
 }
 

@@ -12,6 +12,10 @@
     </head>
     <body>
         {% block body %}
+            {% if app.user %}
+                {% include '.components/navigation/navbar.html.twig' %}
+            {% endif %}
+
             <div class="content-container">
                 {% block content %}{% endblock %}
             </div>

@@ -53,6 +53,10 @@
             <source>Already have an account?</source>
             <target>Already have an account?</target>
         </trans-unit>
+        <trans-unit id="3">
+            <source>Logged as</source>
+            <target>Logged as</target>
+        </trans-unit>
     </body>
   </file>
 </xliff>
