@@ -37,6 +37,14 @@
           <source>api.error.email_already_exists</source>
           <target>This email already exists.</target>
       </trans-unit>
+        <trans-unit id="Create account">
+            <source>Create account</source>
+            <target>Create account</target>
+        </trans-unit>
+      <trans-unit id="Dont have account?">
+        <source>Don't have account?</source>
+        <target>Don't have account?</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
