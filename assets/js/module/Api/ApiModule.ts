@@ -23,7 +23,6 @@ const __xhrStack = {};
 export const ApiModule: ApiModuleInterface = {
     doRequest(url: string, data: object, callback: ResponseCallbackType, method: RequestType) {
         if (!!__xhrStack[url] && __xhrStack[url].readyState != 4) {
-            console.log(`Aborting: ${url}`)
             __xhrStack[url].abort();
         }
 

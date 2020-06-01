@@ -32,7 +32,6 @@ export const RegistrationFormModule: RegistrationFormModuleInterface = {
             if (validEmail) {
                 ApiModule.checkEmail(email, (response) => {
                     const { valid, error } = response;
-                    console.log([ valid, error ]);
 
                     if (valid) {
                         target.addClass('is-valid');
