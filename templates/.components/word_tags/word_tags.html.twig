@@ -1,0 +1,5 @@
+<div class="m-3 text-center">
+    {% for word in words %}
+        {% include '.components/word_tags/tag.html.twig' with {word: word} %}
+    {% endfor %}
+</div>

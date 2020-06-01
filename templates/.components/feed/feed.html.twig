@@ -1,7 +1,15 @@
 <div>
-    <h2 class="text-center">{{ 'News feed'|trans }}</h2>
+    <div>
+        {% include '.components/word_tags/word_tags.html.twig' with {words: countedWords} %}
+    </div>
 
-    {% for feedItemsGroup in feedItemsGroups %}
-        {% include '.components/feed/feed_group.html.twig' with {group: feedItemsGroup} %}
-    {% endfor %}
+    <div>
+        <h2 class="text-center">{{ 'News feed'|trans }}</h2>
+    </div>
+
+    <div>
+        {% for feedItemsGroup in feedItemsGroups %}
+            {% include '.components/feed/feed_group.html.twig' with {group: feedItemsGroup} %}
+        {% endfor %}
+    </div>
 </div>

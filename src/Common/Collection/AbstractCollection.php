@@ -2,7 +2,11 @@
 
 namespace App\Common\Collection;
 
-abstract class AbstractCollection implements CollectionInterface
+abstract class AbstractCollection implements
+    CollectionInterface,
+    WalkableCollectionInterface,
+    FilterableCollectionInterface,
+    SortableCollectionInterface
 {
     private $position;
 
@@ -10,8 +14,8 @@ abstract class AbstractCollection implements CollectionInterface
 
     public function __construct(array $items = [])
     {
-        $this->items = $items;
         $this->position = 0;
+        $this->setItems($items);
     }
 
     public function current()
@@ -86,5 +90,20 @@ abstract class AbstractCollection implements CollectionInterface
     public function isEmpty(): bool
     {
         return count($this->items) === 0;
+    }
+
+    public function filter($callable, int $flags = 0): void
+    {
+        $this->items = array_filter($this->items, $callable, $flags);
+    }
+
+    public function walk($callable): void
+    {
+        array_walk($this->items, $callable);
+    }
+
+    public function sort($callable): void
+    {
+        usort($this->items, $callable);
     }
 }

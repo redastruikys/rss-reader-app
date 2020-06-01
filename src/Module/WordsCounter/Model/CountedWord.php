@@ -16,4 +16,9 @@ class CountedWord extends Word
     {
         return $this->count;
     }
+
+    public function setCount(int $count): void
+    {
+        $this->count = $count;
+    }
 }

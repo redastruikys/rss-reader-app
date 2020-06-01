@@ -22,7 +22,7 @@ class TheRegisterFeedReader implements FeedReaderInterface
     /**
      * @var FeedItemsCollection
      */
-    private $items;
+    private $ungroupedItems;
 
     /**
      * @var FeedItemsGroupsCollection
@@ -33,8 +33,10 @@ class TheRegisterFeedReader implements FeedReaderInterface
     {
         $this->feedIo = $feedIo;
         $this->sourceUrl = $sourceUrl;
-        $this->items = new FeedItemsCollection();
+        $this->ungroupedItems = new FeedItemsCollection();
         $this->itemsGroups = new FeedItemsGroupsCollection();
+
+        $this->fetchFeedItems();
     }
 
     /**
@@ -43,9 +45,7 @@ class TheRegisterFeedReader implements FeedReaderInterface
     public function getItems(): array
     {
         if ($this->itemsGroups->isEmpty()) {
-            $this->readFeedItems();
-
-            foreach ($this->items->getItems() as $item) {
+            foreach ($this->ungroupedItems->getItems() as $item) {
                 $key = $this->formatGroupKeyFromDate($item);
 
                 if (!$this->itemsGroups->offsetExists($key)) {
@@ -59,15 +59,23 @@ class TheRegisterFeedReader implements FeedReaderInterface
         return $this->itemsGroups->getItems();
     }
 
-    private function readFeedItems(): void
+    /**
+     * @return array|FeedItem[]
+     */
+    public function getUngroupedItems(): array
     {
-        if ($this->items->isEmpty()) {
+        return $this->ungroupedItems->getItems();
+    }
+
+    private function fetchFeedItems(): void
+    {
+        if ($this->ungroupedItems->isEmpty()) {
             $feed = $this->feedIo
                 ->read($this->sourceUrl)
                 ->getFeed();
 
             foreach ($feed as $item) {
-                $this->items->addItem(new FeedItem($item));
+                $this->ungroupedItems->addItem(new FeedItem($item));
             }
         }
     }

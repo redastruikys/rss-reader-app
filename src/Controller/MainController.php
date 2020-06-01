@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Module\RssReader\FeedReaderInterface;
+use App\Module\WordsCounter\Model\CountedWord;
+use App\Module\WordsCounter\Service\MostPopularWordsCollectionBuilder;
+use App\Module\WordsCounter\Service\WordsProvider\FeedContentWordsProvider\FeedContentWordsProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +17,24 @@ class MainController extends AbstractController
      */
     private $feedReader;
 
-    public function __construct(FeedReaderInterface $feedReader)
-    {
+    /**
+     * @var FeedContentWordsProvider
+     */
+    private $feedContentWordsProvider;
+
+    /**
+     * @var MostPopularWordsCollectionBuilder
+     */
+    private $popularWordsCollectionBuilder;
+
+    public function __construct(
+        FeedReaderInterface $feedReader,
+        MostPopularWordsCollectionBuilder $popularWordsCollectionBuilder,
+        FeedContentWordsProvider $feedContentWordsProvider
+    ) {
         $this->feedReader = $feedReader;
+        $this->feedContentWordsProvider = $feedContentWordsProvider;
+        $this->popularWordsCollectionBuilder = $popularWordsCollectionBuilder;
     }
 
     /**
@@ -29,8 +47,22 @@ class MainController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $feedItemsGroups = $this->feedReader->getItems();
+        return $this->render('main/index.html.twig', [
+            'feedItemsGroups' => $this->getFeedItemsGroups(),
+            'countedWords' => $this->getCountedWords(),
+        ]);
+    }
 
-        return $this->render('main/index.html.twig', ['feedItemsGroups' => $feedItemsGroups]);
+    private function getFeedItemsGroups(): array
+    {
+        return $this->feedReader->getItems();
+    }
+
+    /**
+     * @return array|CountedWord[]
+     */
+    private function getCountedWords(): array
+    {
+        return $this->popularWordsCollectionBuilder->getMostPopularWords();
     }
 }
