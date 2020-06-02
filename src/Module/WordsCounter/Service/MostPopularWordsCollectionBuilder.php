@@ -17,7 +17,7 @@ class MostPopularWordsCollectionBuilder
     const DEFAULT_WORDS_LIMIT = 10;
     const WORDS_LIMIT_CONFIG_KEY = 'app.most_popular_words_limit';
     const CACHE_KEY_PATTERN = 'popular_words_collection_%s';
-    const CACHE_DURATION = 86400;
+    const CACHE_DURATION = 10800;
 
     /**
      * @var WordsProviderInterface
